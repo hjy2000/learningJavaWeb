@@ -4,6 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+    <typeAliases>
+        <package name="com.itheima.pojo"/>
+    </typeAliases>
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -12,14 +15,15 @@
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
                 <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=false"/>
                 <property name="username" value="root"/>
-                <property name="password" value="440221"/>
+<!--                <property name="password" value="440221"/>-->
+                <property name="password" value="440221Hjy@#"/>  <!--这里要区分一下 自己的是440221Hjy@#-->
             </dataSource>
         </environment>
     </environments>
     <mappers>
         <!-- 加载sql映射文件-->
 <!--        <mapper resource="com/itheima/mapper/UserMapper.xml"/>-->
-        <!-- 代理开发加载映射文件-->
+        <!-- 代理开发加载映射文件，简化映射文件加载-->
         <package name="com.itheima.mapper"/>
     </mappers>
 </configuration>
