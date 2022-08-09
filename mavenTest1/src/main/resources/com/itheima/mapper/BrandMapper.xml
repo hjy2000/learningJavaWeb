@@ -1,8 +1,97 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.itheima.mapper.BrandMapper">
+    <insert id="add">
+        insert into tb_brand (brand_name, company_name, ordered, description, status)
+        values(#{brandName},#{companyName},#{ordered},#{description},#{status});
+    </insert>
 
     <select id="selectAll" resultType="Brand">
         select * from tb_brand;
+    </select>
+<!--    #{}内和接口方法的参数 占位符 ：#{}防止sql注入 ${} 拼sql 存在sql注入问题-->
+<!--    $使用时机 现在一般不用了-->
+<!--     parameterType="int" 一般省略-->
+<!--    特殊字符处理 例如<符号 进行转义&lt;  或者CDATA区  <![CDATA[]]>  -->
+    <select id="selectById" resultType="com.itheima.pojo.Brand">
+        select * from tb_brand where id = #{id};
+    </select>
+    <select id="selectByCondition" resultType="com.itheima.pojo.Brand">
+        select *
+        from tb_brand
+        where status = #{status}
+          and company_name like #{companyName}
+          and brand_name like #{brandName}
+    </select>
+    <select id="selectByCondition1" resultType="com.itheima.pojo.Brand">
+        select *
+        from tb_brand
+        where status = #{status}
+          and company_name like #{companyName}
+          and brand_name like #{brandName}
+    </select>
+
+    <!--动态条件查询-->
+<!--    问题：第一个无值时出现where后直接跟and sql语句报错 解决方法：1.第一个条件前面也加and 然后前面加恒等式（如1=1） 2.where标签
+-->
+<!--    <select id="selectByCondition3" resultType="com.itheima.pojo.Brand">-->
+<!--        select *-->
+<!--        from tb_brand-->
+<!--        where 1=1-->
+<!--            <if test="status!=null">-->
+<!--                and status = #{status}-->
+<!--            </if>-->
+<!--            <if test="companyName!=null and companyName!=''">-->
+<!--                and company_name like #{companyName}-->
+<!--            </if>-->
+<!--          <if test="brandName!=null and brandName!=''">-->
+<!--                and brand_name like #{brandName}-->
+<!--          </if>-->
+
+<!--    </select>-->
+
+    <select id="selectByCondition3" resultType="com.itheima.pojo.Brand">
+        select *
+        from tb_brand
+        <where>
+        <if test="status!=null">
+            and status = #{status}
+        </if>
+        <if test="companyName!=null and companyName!=''">
+            and company_name like #{companyName}
+        </if>
+        <if test="brandName!=null and brandName!=''">
+            and brand_name like #{brandName}
+        </if>
+        </where>
+    </select>
+
+    <select id="selectByCondition2" resultType="com.itheima.pojo.Brand">
+        select *
+        from tb_brand
+        where status = #{status}
+          and company_name like #{companyName}
+          and brand_name like #{brandName}
+    </select>
+
+    <select id="selectByConditionSingle" resultType="com.itheima.pojo.Brand">
+        select *
+        from tb_brand
+        <where>
+        <choose>
+            <when test="status!=null">
+                status = #{status}
+            </when>
+            <when test="companyName!=null and companyName!=''">
+                company_name like #{companyName}
+            </when>
+            <when test="brandName!=null and brandName!=''">
+                brand_name like #{brandName}
+            </when>
+<!--            <otherwise>-->
+<!--                1=1-->
+<!--            </otherwise>-->
+        </choose>
+        </where>
     </select>
 </mapper>

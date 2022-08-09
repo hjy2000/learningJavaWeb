@@ -4,6 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+    <settings>
+        <!--  开启自动驼峰命名规则映射  -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
     <typeAliases>
         <package name="com.itheima.pojo"/>
     </typeAliases>
@@ -15,8 +19,8 @@
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
                 <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=false"/>
                 <property name="username" value="root"/>
-<!--                <property name="password" value="440221"/>-->
-                <property name="password" value="440221Hjy@#"/>  <!--这里要区分一下 自己的是440221Hjy@#-->
+                <property name="password" value="440221"/>
+<!--                <property name="password" value="440221Hjy@#"/>  &lt;!&ndash;这里要区分一下 自己的是440221Hjy@#&ndash;&gt;-->
             </dataSource>
         </environment>
     </environments>
