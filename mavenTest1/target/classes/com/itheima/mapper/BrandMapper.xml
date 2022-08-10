@@ -5,10 +5,58 @@
         insert into tb_brand (brand_name, company_name, ordered, description, status)
         values(#{brandName},#{companyName},#{ordered},#{description},#{status});
     </insert>
+    <insert id="add2" useGeneratedKeys="true" keyProperty="id"> <!--主键返回设置 这里的id是实体类的属性-->
+        insert into tb_brand (brand_name, company_name, ordered, description, status)
+        values(#{brandName},#{companyName},#{ordered},#{description},#{status});
+    </insert>
+
+    <update id="update">
+        update tb_brand set
+                            brand_name=#{brandName},
+                            company_name=#{companyName},
+                            ordered=#{ordered},
+                            description=#{description},
+                            status=#{status} where id=#{id};
+    </update>
+
+    <update id="update1">
+        update tb_brand
+        <set>
+            <if test="companyName!=null and companyName!=''">
+                company_name=#{companyName},
+            </if>
+            <if test="brandName!=null and brandName!=''">
+                brand_name=#{brandName},
+            </if>
+            <if test="ordered!=null">
+                ordered=#{ordered},
+            </if>
+            <if test="description!=null and description!=''">
+                description=#{description},
+            </if>
+            <if test="status!=null">
+                status=#{status}
+            </if>
+        </set>
+        where id=#{id};
+    </update>
+    <delete id="deleteById">
+        delete from tb_brand where id = #{id};
+    </delete>
+    <delete id="deleteByIds">
+        delete from tb_brand where id in
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                <!--这里可以写ids是因为使用@Param注解指定了Map集合的key（mybatis默认封装为map）
+            若不指定时mybatis默认讲数组封装为array=ids 则需要写array（key值）
+            -->
+            #{id}
+            </foreach>
+    </delete>
 
     <select id="selectAll" resultType="Brand">
         select * from tb_brand;
     </select>
+
 <!--    #{}内和接口方法的参数 占位符 ：#{}防止sql注入 ${} 拼sql 存在sql注入问题-->
 <!--    $使用时机 现在一般不用了-->
 <!--     parameterType="int" 一般省略-->

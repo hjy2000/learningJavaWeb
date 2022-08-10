@@ -4,8 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.itheima.mapper.UserMapper">
 
-    <select id="selectAll" resultType="User">
-        select * from tb_user;
-    </select>
-    <select id="selectById" resultType="User"></select>
+<!--    <select id="selectAll" resultType="User">-->
+<!--        select * from tb_user;-->
+<!--    </select>-->
+<!--        <select id="select" resultType="User">-->
+<!--            select *-->
+<!--            from tb_user-->
+<!--            where-->
+<!--                username=#{arg0}-->
+<!--              and password=#{arg1}-->
+<!--        </select>-->
+    <select id="selectById" resultType="com.itheima.pojo.User"></select>
 </mapper>

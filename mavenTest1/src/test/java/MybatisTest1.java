@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class MybatisTest1 {
     @Test
-    public void testsekectAll() throws IOException {
+    public void testselectAll() throws IOException {
         //1. 加载mybatis的核心配置文件，获取 SqlSessionFactory
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
@@ -114,6 +114,151 @@ public class MybatisTest1 {
 
         //提交事务
 //        sqlSession.commit();
+
+        //4. 释放资源
+        sqlSession.close();
+    }
+
+    @Test
+    public void testAdd2() throws IOException {
+        int status = 1;
+        String companyName="波导手机";
+        String brandName="波导";
+        String description="手机中的战斗机";
+        int ordered = 100;
+
+        //封装brand对象
+        Brand brand=new Brand();
+        brand.setStatus(status);
+        brand.setCompanyName(companyName);
+        brand.setBrandName(brandName);
+        brand.setDescription(description);
+        brand.setOrdered(ordered);
+
+        //1. 加载mybatis的核心配置文件，获取 SqlSessionFactory
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+        //2. 获取SqlSession对象，用它来执行sql
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);//可以设置传参自动提交事务（true）
+        //3
+        BrandMapper brandmapper = sqlSession.getMapper(BrandMapper.class);//获取代理对象
+        brandmapper.add2(brand);
+        System.out.println(brand.getId());//打印主键返回的id值
+
+        //4. 释放资源
+        sqlSession.close();
+    }
+
+    @Test
+    public void testUpdate() throws IOException {
+        int status = 1;
+        String companyName="波导手机";
+        String brandName="波导";
+        String description="波导手机，手机中的战斗机";
+        int ordered = 200;
+        int id=5;
+
+        //封装brand对象
+        Brand brand=new Brand();
+        brand.setStatus(status);
+        brand.setCompanyName(companyName);
+        brand.setBrandName(brandName);
+        brand.setDescription(description);
+        brand.setOrdered(ordered);
+        brand.setId(id);
+        //1. 加载mybatis的核心配置文件，获取 SqlSessionFactory
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+        //2. 获取SqlSession对象，用它来执行sql
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);//可以设置传参自动提交事务（true）
+        //3
+        BrandMapper brandmapper = sqlSession.getMapper(BrandMapper.class);//获取代理对象
+        int count=brandmapper.update(brand);
+        System.out.println(count);//打印影响行数
+
+        //4. 释放资源
+        sqlSession.close();
+    }
+    @Test
+    public void testUpdate1() throws IOException {
+        int status = 0;
+        String companyName="波导手机";
+        String brandName="波导";
+        String description="波导手机，手机中的战斗机";
+        int ordered = 200;
+        int id=6;
+
+        //封装brand对象
+        Brand brand=new Brand();
+        brand.setStatus(status);
+//        brand.setCompanyName(companyName);
+//        brand.setBrandName(brandName);
+//        brand.setDescription(description);
+//        brand.setOrdered(ordered);
+        brand.setId(id);
+        //1. 加载mybatis的核心配置文件，获取 SqlSessionFactory
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+        //2. 获取SqlSession对象，用它来执行sql
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);//可以设置传参自动提交事务（true）
+        //3
+        BrandMapper brandmapper = sqlSession.getMapper(BrandMapper.class);//获取代理对象
+        int count=brandmapper.update1(brand);
+        System.out.println(count);//打印影响行数
+
+        //4. 释放资源
+        sqlSession.close();
+    }
+    @Test
+    public void testDeleteById() throws IOException {
+//        int status = 0;
+//        String companyName="波导手机";
+//        String brandName="波导";
+//        String description="波导手机，手机中的战斗机";
+//        int ordered = 200;
+        int id=6;
+
+        //封装brand对象
+//        Brand brand=new Brand();
+//        brand.setStatus(status);
+//        brand.setCompanyName(companyName);
+//        brand.setBrandName(brandName);
+//        brand.setDescription(description);
+//        brand.setOrdered(ordered);
+//        brand.setId(id);
+        //1. 加载mybatis的核心配置文件，获取 SqlSessionFactory
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+        //2. 获取SqlSession对象，用它来执行sql
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);//可以设置传参自动提交事务（true）
+        //3
+        BrandMapper brandmapper = sqlSession.getMapper(BrandMapper.class);//获取代理对象
+        brandmapper.deleteById(id);
+
+        //4. 释放资源
+        sqlSession.close();
+    }
+    @Test
+    public void testDeleteByIds() throws IOException {
+        int [] ids={1,7};
+        //1. 加载mybatis的核心配置文件，获取 SqlSessionFactory
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+        //2. 获取SqlSession对象，用它来执行sql
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);//可以设置传参自动提交事务（true）
+        //3
+        BrandMapper brandmapper = sqlSession.getMapper(BrandMapper.class);//获取代理对象
+        brandmapper.deleteByIds(ids);
 
         //4. 释放资源
         sqlSession.close();

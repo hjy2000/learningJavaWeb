@@ -23,8 +23,16 @@ public interface BrandMapper {
     List<Brand> selectByCondition(@Param("status")int status,@Param("companyName") String companyname,@Param("brandName") String brandname);
     List<Brand> selectByCondition1(Brand brand);
     List<Brand> selectByCondition2(Map map);
-
     List<Brand> selectByCondition3(Map map);
     List<Brand> selectByConditionSingle(Brand brand);//单条件动态查询
     void add(Brand brand);
+    void add2(Brand brand);
+    int update(Brand brand);
+    int update1(Brand brand);//动态sql修改
+    void deleteById(int id);
+    /**
+     * 批量删除 动态sql 这里加了注解xml里的collection才能写ids
+     * @param ids
+     */
+    void deleteByIds(@Param("ids") int[] ids);
 }
