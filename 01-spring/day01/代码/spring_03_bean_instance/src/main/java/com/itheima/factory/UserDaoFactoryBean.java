@@ -14,4 +14,21 @@ public class UserDaoFactoryBean implements FactoryBean<UserDao> {
         return UserDao.class;
     }
 
+//    /**
+//     * 重写方法 return false时为非单例
+//     * @return
+//     */
+//    @Override
+//    public boolean isSingleton() {
+//        return false;
+//    }
+
+    /**
+     * 或在bean中声明scope为prototype 无需改动重写生成的代码
+     * @return
+     */
+    @Override
+    public boolean isSingleton() {
+        return FactoryBean.super.isSingleton();
+    }
 }

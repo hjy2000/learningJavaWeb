@@ -4,18 +4,17 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!--方式一：构造方法实例化bean-->
-<!--    <bean id="bookDao" class="com.itheima.dao.impl.BookDaoImpl"/>-->
+    <bean id="bookDao" class="com.itheima.dao.impl.BookDaoImpl"/>
 
+    <!--方式二：使用静态工厂实例化bean factory-method告知spring return对象的方法是哪个 -->
+    <bean id="orderDao" class="com.itheima.factory.OrderDaoFactory" factory-method="getOrderDao"/>
 
-    <!--方式二：使用静态工厂实例化bean-->
-<!--    <bean id="orderDao" class="com.itheima.factory.OrderDaoFactory" factory-method="getOrderDao"/>-->
-
-    <!--方式三：使用实例工厂实例化bean-->
+    <!--方式三：使用实例工厂实例化bean 配置工厂bean 然后用对象bean指向工厂bean -->
 <!--    <bean id="userFactory" class="com.itheima.factory.UserDaoFactory"/>
 
     <bean id="userDao" factory-method="getUserDao" factory-bean="userFactory"/>-->
 
     <!--方式四：使用FactoryBean实例化bean-->
-    <bean id="userDao" class="com.itheima.factory.UserDaoFactoryBean"/>
+    <bean id="userDao" class="com.itheima.factory.UserDaoFactoryBean" scope="prototype"/>
 
 </beans>

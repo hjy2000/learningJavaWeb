@@ -17,7 +17,6 @@ public class AppForInstanceUser {
 
 
         ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-
         UserDao userDao1 = (UserDao) ctx.getBean("userDao");
         UserDao userDao2 = (UserDao) ctx.getBean("userDao");
         System.out.println(userDao1);
