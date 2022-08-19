@@ -2,10 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-<!--
-    标准书写
+
+    <!--
+    标准书写方法
     <bean id="bookDao" class="com.itheima.dao.impl.BookDaoImpl">
-        根据构造方法参数名称注入
+        根据构造方法参数名称注入 arg name写的是形参
         <constructor-arg name="connectionNum" value="10"/>
         <constructor-arg name="databaseName" value="mysql"/>
     </bean>
@@ -16,21 +17,23 @@
         <constructor-arg name="bookDao" ref="bookDao"/>
     </bean>
 -->
-<!--
-    解决形参名称的问题，与形参名不耦合
-    <bean id="bookDao" class="com.itheima.dao.impl.BookDaoImpl">
-        根据构造方法参数类型注入
-        <constructor-arg type="int" value="10"/>
-        <constructor-arg type="java.lang.String" value="mysql"/>
-    </bean>
-    <bean id="userDao" class="com.itheima.dao.impl.UserDaoImpl"/>
 
-    <bean id="bookService" class="com.itheima.service.impl.BookServiceImpl">
-        <constructor-arg name="userDao" ref="userDao"/>
-        <constructor-arg name="bookDao" ref="bookDao"/>
-    </bean>-->
+    <!--
+        解决形参名称变化的问题，与形参名不耦合
+        <bean id="bookDao" class="com.itheima.dao.impl.BookDaoImpl">
+            根据构造方法参数类型注入
+            手动设置类型（形参变名）
+            <constructor-arg type="int" value="10"/>
+            <constructor-arg type="java.lang.String" value="mysql"/>
+        </bean>
+        <bean id="userDao" class="com.itheima.dao.impl.UserDaoImpl"/>
 
-    <!--解决参数类型重复问题，使用位置解决参数匹配-->
+        <bean id="bookService" class="com.itheima.service.impl.BookServiceImpl">
+            <constructor-arg name="userDao" ref="userDao"/>
+            <constructor-arg name="bookDao" ref="bookDao"/>
+        </bean>-->
+
+    <!--解决参数类型重复问题，使用位置（index）解决参数匹配-->
     <bean id="bookDao" class="com.itheima.dao.impl.BookDaoImpl">
         <!--根据构造方法参数位置注入-->
         <constructor-arg index="0" value="mysql"/>
@@ -42,4 +45,5 @@
         <constructor-arg name="userDao" ref="userDao"/>
         <constructor-arg name="bookDao" ref="bookDao"/>
     </bean>
+
 </beans>

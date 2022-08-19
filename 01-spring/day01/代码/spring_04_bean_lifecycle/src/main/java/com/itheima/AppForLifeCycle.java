@@ -11,9 +11,9 @@ public class AppForLifeCycle {
         bookDao.save();
 
         //注册关闭钩子函数，在虚拟机退出之前回调此函数，关闭容器（先关容器再关虚拟机）
-        ctx.registerShutdownHook();
+//        ctx.registerShutdownHook();
 
         //关闭容器(暴力关闭)
-//        ctx.close();
+        ctx.close();
     }
 }
